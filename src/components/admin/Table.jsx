@@ -60,7 +60,11 @@ const Table = ({ tableData, cols, title }) => {
                                 value === "Completed"
                                     ? "bg-green-200 text-green-800"
                                     : value === "Processing"
+                                    ? "bg-blue-200 text-blue-800"
+                                    : value === "On Hold"
                                     ? "bg-orange-200 text-orange-800"
+                                    : value === "In Transit"
+                                    ? "bg-purple-200 text-purple-800"
                                     : "bg-red-200 text-red-800"
                             }`}
                         >
@@ -93,6 +97,21 @@ const Table = ({ tableData, cols, title }) => {
                 cell: (info) => (
                     <span>{info.getValue() ? info.getValue() : "-"}</span>
                 ),
+            });
+        }
+
+        if (col.id === "address") {
+            return columnHelper.accessor(col.id, {
+                id: col.id,
+                header: col.header,
+                cell: (info) => (
+                    <span>
+                        {info.getValue()
+                            ? `${info.getValue().substring(0, 30)}...`
+                            : "-"}
+                    </span>
+                ),
+                filterFn: "includesString",
             });
         }
 
@@ -134,7 +153,7 @@ const Table = ({ tableData, cols, title }) => {
             </div>
 
             <div className="overflow-auto rounded-2xl border shadow-lg">
-                <table className="w-full divide-y divide-gray-200 table-auto dark:divide-gray-700">
+                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead className="bg-[#FCFDFD] dark:bg-gray-700 w-full">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <tr key={headerGroup.id}>

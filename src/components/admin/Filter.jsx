@@ -114,6 +114,8 @@ const Filter = ({ columnFilters, setColumnFilters, setData }) => {
                         Completed
                     </option>
                     <option value="Processing">Processing</option>
+                    <option value="In Transit">In Transit</option>
+                    <option value="On Hold">On Hold</option>
                     <option value="Rejected">Rejected</option>
                 </select>
             </div>
