@@ -76,7 +76,6 @@ const Filter = ({ columnFilters, setColumnFilters, setData }) => {
                     selected={startDate}
                     onChange={(date) => {
                         const formattedDate = formatDate(date, "application");
-                        // console.log(formattedDate)
                         setStartDate(formattedDate);
                         handleDateChange("dateApplied", formattedDate);
                     }}
