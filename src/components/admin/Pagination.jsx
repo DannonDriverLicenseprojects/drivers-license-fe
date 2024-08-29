@@ -4,10 +4,23 @@ import ChevronNext from "./icons/ChevronNext";
 import ChevronPrevious from "./icons/ChevronPrevious";
 
 const Pagination = ({ table, tableData }) => {
+    const pageCount = table.getPageCount();
+    const currentPage = table.getState().pagination.pageIndex + 1;
+
+    // Calculate the range of pages to display
+    const startPage = Math.max(1, currentPage - 1);
+    const endPage = Math.min(pageCount, currentPage + 1);
+
+    // Get an array of page numbers to display
+    const pages = [];
+    for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+    }
+
     return (
         <div className="mt-6 flex flex-col md:flex-row md:items-center justify-between gap-4 px-6 pb-6">
             <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
-                <span className="font-medium text-sm text-gray-700 dark:text-gray-100">
+                <span className="font-medium text-sm text-custom-green">
                     {`Page ${
                         table.getState().pagination.pageIndex + 1
                     } of ${table.getPageCount()}`}
@@ -58,27 +71,26 @@ const Pagination = ({ table, tableData }) => {
                 </button>
 
                 <div className="flex items-center">
-                    {[...Array(table.getPageCount())].map(
-                        (pageNumber, index) => {
-                            const currentPage =
-                                table.getState().pagination.pageIndex + 1;
+                    {startPage > 1 && (
+                        <span className="p-1 text-custom-green">...</span>
+                    )}
 
-                            return (
-                                <button
-                                    className={`flex justify-center items-center text-sm px-3 py-1 rounded-md font-semibold ${
-                                        currentPage === index + 1
-                                            ? "bg-custom-green text-white"
-                                            : "text-custom-green bg-transparent"
-                                    }`}
-                                    key={index}
-                                    onClick={() =>
-                                        table.setPageIndex(Number(index))
-                                    }
-                                >
-                                    {index + 1}
-                                </button>
-                            );
-                        }
+                    {pages.map((page) => (
+                        <button
+                            className={`flex justify-center items-center text-sm px-3 py-1 rounded-md font-semibold ${
+                                currentPage === page
+                                    ? "bg-custom-green text-white"
+                                    : "text-custom-green bg-transparent"
+                            }`}
+                            key={page}
+                            onClick={() => table.setPageIndex(Number(page - 1))}
+                        >
+                            {page}
+                        </button>
+                    ))}
+
+                    {endPage < pageCount && (
+                        <span className="p-1 text-custom-green">...</span>
                     )}
                 </div>
 

@@ -14,19 +14,11 @@ import Filter from "./Filter";
 import { formatDate } from "./utils/date";
 
 const Table = ({ tableData, cols, title }) => {
-    const [data, setData] = useState(tableData);
+    const [data] = useState(tableData);
     const [columnFilters, setColumnFilters] = useState([]);
 
     const columnHelper = createColumnHelper();
     const columns = cols.map((col) => {
-        // if (col.id === "id") {
-        //     return columnHelper.accessor("id", {
-        //         id: col.id,
-        //         header: col.header,
-        //         cell: (info) => <span>{info.row.index + 1}</span>,
-        //     });
-        // }
-
         if (col.id === "paymentDate") {
             return columnHelper.accessor(col.id, {
                 id: col.id,
@@ -39,10 +31,7 @@ const Table = ({ tableData, cols, title }) => {
             return columnHelper.accessor(col.id, {
                 id: col.id,
                 header: col.header,
-                cell: (info) => {
-                    console.log(formatDate(info.getValue(), "application"));
-                    return formatDate(info.getValue(), "application");
-                },
+                cell: (info) => formatDate(info.getValue(), "application"),
                 filterFn: "includesString",
             });
         }
@@ -106,9 +95,9 @@ const Table = ({ tableData, cols, title }) => {
                 header: col.header,
                 cell: (info) => (
                     <span>
-                        {info.getValue()
-                            ? `${info.getValue().substring(0, 30)}...`
-                            : "-"}
+                        {info.getValue().length <= 30
+                            ? info.getValue()
+                            : `${info.getValue().substring(0, 30)}...`}
                     </span>
                 ),
                 filterFn: "includesString",
@@ -148,7 +137,6 @@ const Table = ({ tableData, cols, title }) => {
                 <Filter
                     columnFilters={columnFilters}
                     setColumnFilters={setColumnFilters}
-                    setData={setData}
                 />
             </div>
 

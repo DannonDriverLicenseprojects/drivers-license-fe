@@ -8,7 +8,7 @@ import { formatDate } from "./utils/date";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Filter = ({ columnFilters, setColumnFilters, setData }) => {
+const Filter = ({ columnFilters, setColumnFilters }) => {
     const [startDate, setStartDate] = useState();
 
     // Get the current type filter value
@@ -29,16 +29,10 @@ const Filter = ({ columnFilters, setColumnFilters, setData }) => {
         }
     };
 
-    console.log(columnFilters);
-
     const handleDateChange = (id, value) => {
         setColumnFilters((prev) =>
             prev.filter((f) => f.id !== id).concat({ id, value })
         );
-
-        // setData(prev => (
-        //     prev.filter(record => formatDate(record.dateApplied, "application") === value)
-        // ))
     };
 
     const removeDateFilter = () => {
