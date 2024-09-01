@@ -8,14 +8,17 @@ import {
     flexRender,
 } from "@tanstack/react-table";
 import { Link } from "react-router-dom";
+import { MdFilterList, MdClose } from "react-icons/md";
 
 import Pagination from "./Pagination";
 import Filter from "./Filter";
+import Modal from "../Modal";
 import { formatDate } from "./utils/date";
 
 const Table = ({ tableData, cols, title }) => {
     const [data] = useState(tableData);
     const [columnFilters, setColumnFilters] = useState([]);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     const columnHelper = createColumnHelper();
     const columns = cols.map((col) => {
@@ -129,15 +132,24 @@ const Table = ({ tableData, cols, title }) => {
 
     return (
         <div className="flex flex-col gap-6 w-full">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="flex flex-row justify-between items-start md:items-center gap-6">
                 <h3 className="font-inter font-semibold text-[#343C6A] text-xl">
                     {title}
                 </h3>
 
-                <Filter
-                    columnFilters={columnFilters}
-                    setColumnFilters={setColumnFilters}
-                />
+                <div className="hidden md:flex">
+                    <Filter
+                        columnFilters={columnFilters}
+                        setColumnFilters={setColumnFilters}
+                    />
+                </div>
+
+                <div className="md:hidden">
+                    <MdFilterList
+                        onClick={() => setIsFilterOpen(true)}
+                        className="text-3xl text-[#343C6A]"
+                    />
+                </div>
             </div>
 
             <div className="overflow-auto rounded-2xl border shadow-lg">
@@ -187,6 +199,18 @@ const Table = ({ tableData, cols, title }) => {
             </div>
             {/* Pagination */}
             <Pagination table={table} tableData={tableData} />
+
+            {/* Mobile Filter Modal */}
+            <Modal isOpen={isFilterOpen}>
+                <div className="space-y-3">
+                    <h3 className="text-lg font-semibold">Filter</h3>
+                    <MdClose className="absolute top-0 right-4 text-2xl" onClick={() => setIsFilterOpen(false)} />
+                    <Filter
+                        columnFilters={columnFilters}
+                        setColumnFilters={setColumnFilters}
+                    />
+                </div>
+            </Modal>
         </div>
     );
 };

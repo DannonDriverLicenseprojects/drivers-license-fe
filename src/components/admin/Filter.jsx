@@ -56,16 +56,16 @@ const Filter = ({ columnFilters, setColumnFilters }) => {
     ));
 
     return (
-        <div className="flex items-center divide-x border rounded-lg font-medium text-sm shadow-sm">
-            <div className="p-4">
+        <div className="flex flex-col md:flex-row items-center md:divide-x border rounded-lg font-medium text-sm shadow-sm">
+            <div className="p-4 hidden md:block">
                 <FilterIcon />
             </div>
 
-            <div className="p-4">
+            <div className="p-4 hidden md:block">
                 <p className="whitespace-nowrap">Filter By</p>
             </div>
 
-            <div className="p-4 relative w-full">
+            <div className="p-4 relative">
                 <DatePicker
                     selected={startDate}
                     onChange={(date) => {
@@ -76,7 +76,7 @@ const Filter = ({ columnFilters, setColumnFilters }) => {
                     customInput={<CustomDateInput />}
                     showMonthDropdown
                     showYearDropdown
-                    dropdownMode="select"
+                    dropdownMode="select"                    
                 />
             </div>
 
@@ -117,9 +117,11 @@ const Filter = ({ columnFilters, setColumnFilters }) => {
             {columnFilters.length !== 0 && (
                 <div className="p-4">
                     <IoMdCloseCircle
-                        className="text-red-600 size-6 cursor-pointer"
+                        className="hidden md:block text-red-600 size-6 cursor-pointer"
                         onClick={() => setColumnFilters([])}
                     />
+
+                    <button className="md:hidden p-2 text-center bg-red-600 text-white rounded-lg" onClick={() => setColumnFilters([])}>Clear Filters</button>
                 </div>
             )}
         </div>
