@@ -184,10 +184,9 @@ const Table = ({ tableData, cols, title }) => {
                         )}
                     </tbody>
                 </table>
-
-                {/* Pagination */}
-                <Pagination table={table} tableData={tableData} />
             </div>
+            {/* Pagination */}
+            <Pagination table={table} tableData={tableData} />
         </div>
     );
 };

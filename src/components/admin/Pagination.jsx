@@ -18,7 +18,7 @@ const Pagination = ({ table, tableData }) => {
     }
 
     return (
-        <div className="mt-6 flex flex-col md:flex-row md:items-center justify-between gap-4 px-6 pb-6">
+        <div className="mt-4 flex flex-col md:flex-row md:items-center justify-between gap-4 px-6 pb-6">
             <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
                 <span className="font-medium text-sm text-custom-green">
                     {`Page ${
