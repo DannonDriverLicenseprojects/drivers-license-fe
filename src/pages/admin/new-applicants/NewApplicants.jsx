@@ -3,6 +3,8 @@ import ApplicationBody from '../../../components/layouts/admin/body/ApplicationB
 import { useEffect } from "react"
 import { useOutletContext } from "react-router-dom"
 import MetricsCard from '../../../components/admin/MetricsCard'
+import Table from "../../../components/admin/Table";
+import { newApplicantsColumns, newApplicantsData } from "./data";
 
 
 const NewApplicants = () => {
@@ -24,10 +26,11 @@ const NewApplicants = () => {
 
         />
       }
-      table={"table should be here"}
+      table={<Table tableData={newApplicantsData} cols={newApplicantsColumns} title="New Applicants" />}
       chart={"chart should be here"}
     />
   )
 }
 
-export default NewApplicants
+
+export default NewApplicants;
