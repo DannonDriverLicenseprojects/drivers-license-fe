@@ -1,21 +1,27 @@
-import { useEffect } from "react"
-import { useOutletContext } from "react-router-dom"
-
-
-
+import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
+import Table from "../../../components/admin/Table";
+import {
+    newApplicantsColumns,
+    newApplicantsData,
+} from "../new-applicants/data";
 
 const Frsc = () => {
+    const { setPageName } = useOutletContext();
 
-  const { setPageName } = useOutletContext()
+    useEffect(() => {
+        setPageName("FRSC");
+    }, []);
 
-  useEffect(() => {
-    setPageName('FRSC')
-  }, [])
+    return (
+        <div>
+            <Table
+                tableData={newApplicantsData}
+                cols={newApplicantsColumns}
+                title="All Applicants"
+            />
+        </div>
+    );
+};
 
-
-  return (
-    <div>Frsc</div>
-  )
-}
-
-export default Frsc
+export default Frsc;

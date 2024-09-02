@@ -110,11 +110,11 @@
 
 /* Admin Table styles */
 .table-data {
-  @apply py-4 px-6 text-sm font-medium text-[#202224] whitespace-nowrap dark:text-white
+  @apply p-4 text-sm font-medium text-[#202224] whitespace-nowrap dark:text-white
 }
 
 .th {
-  @apply py-3 px-6 text-sm font-bold tracking-wider text-left text-[#202224] font-nunito uppercase dark:text-gray-400
+  @apply py-3 px-6 text-sm font-bold whitespace-nowrap tracking-wider text-left text-[#202224] font-nunito uppercase dark:text-gray-400
 }
 
 .status-pill {
