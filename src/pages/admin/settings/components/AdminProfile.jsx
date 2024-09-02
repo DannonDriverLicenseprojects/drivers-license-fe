@@ -78,7 +78,7 @@ export const AdminProfile = () => {
         if (!profileData.password) {
             error.password = "Field is required";
         } else if (!PWD_REGEX.test(profileData.password)) {
-            error.password = "Invalid password";
+            error.password = "Alphanumeric password is required";
         }
         if (!profileData.postal_code) {
             error.postal_code = "Field is required";

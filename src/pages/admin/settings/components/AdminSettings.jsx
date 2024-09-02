@@ -28,7 +28,7 @@ const AdminSettings = () => {
         if (!data.new_password) {
             error.new_password = "Field is required";
         } else if (!PWD_REGEX.test(data.new_password)) {
-            error.new_password = "Invalid password";
+            error.new_password = "Alphanumeric password  required";
         }
         else if(data.password != data.new_password){
             error.new_password = "password dont match";
