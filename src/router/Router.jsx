@@ -42,6 +42,7 @@ import {
     Vio,
 } from "../pages/admin";
 import { AdminProfile } from "../pages/admin/settings/components/AdminProfile";
+import AdminSettings from "../pages/admin/settings/components/AdminSettings";
 
 const router = createBrowserRouter([
     {
@@ -190,6 +191,10 @@ const router = createBrowserRouter([
                                     {
                                         index: true,
                                         element: <AdminProfile />
+                                    },
+                                    {
+                                        path:"/admin/settings/settingPage",
+                                        element: <AdminSettings />
                                     }
                                 ]
                             },                          

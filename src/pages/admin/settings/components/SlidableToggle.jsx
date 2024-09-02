@@ -10,8 +10,8 @@ const SlidableToggle = () => {
   return (
     <div className="flex items-center">
       <div
-        className={`relative w-14 h-8 bg-gray-300 rounded-full cursor-pointer transition-colors duration-300 ${
-          isOn ? 'bg-green-700' : 'bg-gray-300'
+        className={`shrink-0 relative w-14 h-8 bg-gray-300 rounded-full cursor-pointer transition-colors duration-300 ${
+          isOn ? 'bg-[#22D665]' : 'bg-gray-300'
         }`}
         onClick={toggleSwitch}
       >
@@ -21,8 +21,8 @@ const SlidableToggle = () => {
           }`}
         />
       </div>
-      <span className="ml-3 text-gray-700">
-        {isOn ? 'On' : 'Off'}
+      <span className="ml-5 font-normal text-base text-[#232323] text-wrap">
+      Enable or disable two factor authentication
       </span>
     </div>
   );

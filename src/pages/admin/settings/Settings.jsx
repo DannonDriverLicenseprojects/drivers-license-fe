@@ -8,7 +8,7 @@ const Settings = () => {
       title: "Profile"
     },
     {
-      to:"./settings",
+      to:"/admin/settings/settingPage",
       title:"Settings"
     }
   ]
