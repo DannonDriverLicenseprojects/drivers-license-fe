@@ -4,7 +4,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 const Settings = () => {
   const listArray = [
     {
-      to: "./profile",
+      to: "/admin/settings",
       title: "Profile"
     },
     {
