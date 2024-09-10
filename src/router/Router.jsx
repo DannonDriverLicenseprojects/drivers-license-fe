@@ -2,7 +2,10 @@ import DrivingSchool from "../pages/drivingschool/DrivingSchool";
 
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import AuthLayout from "../components/AuthLayout";
+import PageNotFound from "../components/PageNotFound";
 import Root from "../components/Root";
+import AdminAuthLayout from "../components/layouts/admin/AdminAuthLayout";
+import AdminLayout from "../components/layouts/admin/AdminLayout";
 import ApplicationForm, {
     applicationFormLoader,
 } from "../pages/applications/ApplicationForm";
@@ -23,24 +26,23 @@ import HomePage from "../pages/home/HomePage";
 import Profile, { profileLoader } from "../pages/profile/Profile";
 import Support from "../pages/support/Support";
 import Verify from "../pages/verification/Verify";
-import PageNotFound from "../components/PageNotFound";
-import AdminLayout from "../components/layouts/admin/AdminLayout";
-import AdminAuthLayout from "../components/layouts/admin/AdminAuthLayout";
 
 import {
     AdminDashboard,
     Dlc,
     Dssp,
     Frsc,
-    Vio,
+    Login,
     NewApplicants,
     Payments,
     Reissue,
     Renewal,
     Settings,
-    Login,
     SignUp,
+    Vio,
 } from "../pages/admin";
+import { AdminProfile } from "../pages/admin/settings/components/AdminProfile";
+import AdminSettings from "../pages/admin/settings/components/AdminSettings";
 
 const router = createBrowserRouter([
     {
@@ -185,6 +187,16 @@ const router = createBrowserRouter([
                             {
                                 path: "settings",
                                 element: <Settings />,
+                                children:[
+                                    {
+                                        index: true,
+                                        element: <AdminProfile />
+                                    },
+                                    {
+                                        path:"/admin/settings/settingPage",
+                                        element: <AdminSettings />
+                                    }
+                                ]
                             },                          
                         ],
                     },
