@@ -26,9 +26,6 @@ import HomePage from "../pages/home/HomePage";
 import Profile, { profileLoader } from "../pages/profile/Profile";
 import Support from "../pages/support/Support";
 import Verify from "../pages/verification/Verify";
-import PageNotFound from "../components/PageNotFound";
-import AdminLayout from "../components/layouts/admin/AdminLayout";
-import AdminAuthLayout from "../components/layouts/admin/AdminAuthLayout";
 import BookAppointment from "../pages/schedule_appointment/BookAppointment";
 import {
     AdminDashboard,
