@@ -18,6 +18,6 @@ export const dropdownData = {
         {title: "our history", to: "/history"},
         {title: "careers", to: "/careers"},
         {title: "partnership", to: "/patnership"},
-        {title: "contact us", to: "/contact"},
+        {title: "contact us", to: "/support"},
     ]
 };
