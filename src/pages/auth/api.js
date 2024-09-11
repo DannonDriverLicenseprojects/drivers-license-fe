@@ -22,15 +22,32 @@ export const login = async (data) => {
 export const createAccount = async (data) => {
     try {
         const response = await axios.post(
-            "https://saviorte.pythonanywhere.com/api/signup/",
+            "https://dannon.pythonanywhere.com/api/v1/register/",
             data
         );
         
-        if (response.status === 201) {
+        if (response.status === 200 || response.statusText === "OK") {
             return response.data;
         }
     } catch (error) {
-        return error;
+        // Handle the error response
+        if (error.response) {
+            // Server responded with a status other than 200 range
+            return {
+                error: error.response.data,
+                status: error.response.status,
+            };
+        } else if (error.request) {
+            // Request was made but no response received
+            return {
+                error: error.request,
+            };
+        } else {
+            // Something happened in setting up the request
+            return {
+                error: error.message,
+            };
+        }
     }
 }
 

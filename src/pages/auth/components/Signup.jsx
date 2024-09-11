@@ -25,16 +25,16 @@ export default function Signup({ paragraph, linkUrl, linkName }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [error, setError] = useState("");
-    const [registeredEmail, setRegisteredEmail] = useState("");
+    const [firstName, setFirstName] = useState("");
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isPasswordValid, setIsPasswordValid] = useState(false);
     const [isPasswordMatch, setIsPasswordMatch] = useState(false);
-    const [passVisible, setPassVisible] = useState(false)
+    const [passVisible, setPassVisible] = useState(false);
     const navigate = useNavigate();
     const { name, email_license_id, password, confirm_password } = signupState;
     const { isUserAuthenticated } = useAuth();
 
-    console.log(signupState)
+    // console.log(signupState)
 
     useEffect(() => {
         const emailTest = EMAIL_REGEX.test(email_license_id);
@@ -69,28 +69,8 @@ export default function Signup({ paragraph, linkUrl, linkName }) {
         setError("");
         setIsSubmitting(true);
 
-        if (!isEmailValid) {
-            setError("Invalid email address!");
-            setIsSubmitting(false);
-            return;
-        }
-
-        if (!isPasswordMatch) {
-            setError("Passwords do not match!");
-            setIsSubmitting(false);
-            return;
-        }
-
-        if (!isPasswordValid) {
-            setError(
-                "Invalid password! Password must contain the following: 8-24 characters; at least 1 capital letter; at least 1 digit; at least 1 special character; Allowed characters are !@#$%*&_-"
-            );
-            setIsSubmitting(false);
-            return;
-        }
-
         const data = {
-            username: signupState.name,
+            full_name: signupState.name,
             email: signupState.email_license_id,
             password: signupState.password,
             confirm_password: signupState.confirm_password,
@@ -98,21 +78,17 @@ export default function Signup({ paragraph, linkUrl, linkName }) {
 
         const signupResponse = await createAccount(data);
 
-        if (signupResponse.id) {
+        if (signupResponse.details) {
             setIsSubmitting(false);
-            setRegisteredEmail(signupResponse.email);
+            setFirstName(data.full_name.split(" ")[0]);
             setIsOpen(true);
             clearForm();
-            console.log(signupResponse);
 
-            setTimeout(() => {
-                navigate("/login");
-            }, 5000);
             return;
         }
 
         setIsSubmitting(false);
-        setError("Something went wrong! Please try again.");
+        setError(signupResponse.error.error.message);
     };
 
     return isUserAuthenticated ? (
@@ -139,7 +115,7 @@ export default function Signup({ paragraph, linkUrl, linkName }) {
                         placeholder={field.placeholder}
                         isPasswordValid={isPasswordValid}
                         isPasswordMatch={isPasswordMatch}
-                        isEmailValid={isEmailValid}                        
+                        isEmailValid={isEmailValid}
                     />
                 ))}
                 <div className="flex flex-col md:flex-row gap-6 justify-between">
@@ -158,7 +134,9 @@ export default function Signup({ paragraph, linkUrl, linkName }) {
                             isPasswordValid={isPasswordValid}
                             isPasswordMatch={isPasswordMatch}
                             isEmailValid={isEmailValid}
-                            changePasswordType={() => { setPassVisible(!passVisible) }}
+                            changePasswordType={() => {
+                                setPassVisible(!passVisible);
+                            }}
                         />
                     ))}
                 </div>
@@ -176,7 +154,9 @@ export default function Signup({ paragraph, linkUrl, linkName }) {
                     {isSubmitting ? (
                         <div className="flex justify-center gap-4">
                             <div className="w-6 h-6 rounded-full animate-spin border-y-4 border-solid border-white border-t-transparent shadow-md"></div>
-                            <span className="font-poppins">Creating account...</span>
+                            <span className="font-poppins">
+                                Creating account...
+                            </span>
                         </div>
                     ) : (
                         "Create Account"
@@ -196,7 +176,7 @@ export default function Signup({ paragraph, linkUrl, linkName }) {
             <Modal isOpen={isOpen}>
                 <SignUpResponse
                     setIsModalOpen={setIsOpen}
-                    email={registeredEmail}
+                    name={firstName}
                 />
             </Modal>
         </form>
