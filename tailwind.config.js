@@ -11,6 +11,9 @@ export default {
       colors: {
         'custom-green': '#15803D',
         'grey': '#3d4249',
+      },
+      boxShadow: {
+        'custom-shadow': "0 0 42px 0 rgba(0, 0, 0, 0.08)"
       }
     },
   },
