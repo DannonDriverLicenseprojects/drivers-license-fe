@@ -1,7 +1,7 @@
 export const schoolsData = [
     {
         name: "Saftey Driving School",
-        phone: "08056789045",
+        phone: "08012389045",
         email: "learntodrive@gmail.com",
         address: "Be good ventures Opp. Zariek Photos, Maiduguri, Borno State.",
         state: "Borno State",
@@ -17,7 +17,7 @@ export const schoolsData = [
     },
     {
         name: "Journey international Driving School",
-        phone: "08056789045",
+        phone: "08012389045",
         email: "learntodrive@gmail.com",
         address: "Number 8 mission Road Awka, Anambra State.",
         state: "Anambra State",
@@ -33,7 +33,7 @@ export const schoolsData = [
     },
     {
         name: "City Driving School",
-        phone: "08056789045",
+        phone: "08012389045",
         email: "learntodrive@gmail.com",
         address: "No 141 Zaria Road, Kano State.",
         state: "Kano State",
@@ -49,7 +49,7 @@ export const schoolsData = [
     },
     {
         name: "Beta Driving School",
-        phone: "08056789045",
+        phone: "08012389045",
         email: "learntodrive@gmail.com",
         address: "Benin Lagos Expressway, Ore, Ondo State.",
         state: "Ondo State",
@@ -65,7 +65,7 @@ export const schoolsData = [
     },
     {
         name: "Omega Driving School",
-        phone: "08056789045",
+        phone: "08012389045",
         email: "learntodrive@gmail.com",
         address: "Benin Lagos Expressway, Ore, Ondo State.",
         state: "Ondo State",

@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
 import { Lens } from "./icons";
+import NaijaStates from "naija-state-local-government";
 
-const Filter = ({ searchText, setSearchText }) => {
-    const options = [
-        { value: "1", label: "Option 1" },
-        { value: "2", label: "Option 2" },
-        { value: "3", label: "Option 3" },
-    ];
+const Filter = ({ setSearchText, stateLgaObj }) => {
+    const [filterValue, setFilterValue] = useState("");
+    const [lgas, setLgas] = useState([]);
+    const states = NaijaStates.states();
+    const { selectedState, setSelectedState, selectedLga, setSelectedLga } =
+        stateLgaObj;
 
-    const handleSelect = (option) => {
-        console.log("Selected option:", option);
+    // Set searchText with 1 second debounce
+    useEffect(() => {
+        const timeOut = setTimeout(() => {
+            setSearchText(filterValue);
+        }, 1000);
+
+        return () => clearTimeout(timeOut);
+    }, [filterValue]);
+
+    // Set local government areas of the selected state
+    useEffect(() => {
+        setLgas((prev) => {
+            if (selectedState) {
+                return NaijaStates.lgas(selectedState).lgas;
+            } else {
+                return [];
+            }
+        });
+    }, [selectedState]);
+
+    const clearFilter = () => {
+        setFilterValue("");
+        setSelectedLga("");
+        setSelectedState("");
     };
 
     return (
@@ -20,8 +43,8 @@ const Filter = ({ searchText, setSearchText }) => {
                     type="text"
                     name="searchText"
                     className="w-full text-sm text-[#9E9E9E] font-medium outline-none bg-transparent"
-                    value={searchText}
-                    onChange={() => setSearchText()}
+                    value={filterValue}
+                    onChange={(e) => setFilterValue(e.target.value)}
                     placeholder="Search Driving School..."
                 />
 
@@ -30,17 +53,26 @@ const Filter = ({ searchText, setSearchText }) => {
             <div className="flex items-center gap-5">
                 <Dropdown
                     title="State"
-                    options={options}
-                    placeholder="Select an option"
-                    onSelect={handleSelect}
+                    options={states}
+                    selectedOption={selectedState}
+                    setSelectedOption={setSelectedState}
+                    placeholder="Select State"
                 />
                 <Dropdown
                     title="LGA"
-                    options={options}
-                    placeholder="Select an option"
-                    onSelect={handleSelect}
+                    options={lgas}
+                    selectedOption={selectedLga}
+                    setSelectedOption={setSelectedLga}
+                    placeholder="Select LGA"
                 />
-                <button className="px-6 py-2 bg-custom-green hover:bg-green-800 text-sm font-medium text-white rounded-full">Search</button>
+                {(filterValue || selectedState || selectedLga) && (
+                    <button
+                        onClick={clearFilter}
+                        className="px-6 py-2 bg-custom-green hover:bg-green-800 text-sm font-medium text-white rounded-full"
+                    >
+                        Clear
+                    </button>
+                )}
             </div>
         </div>
     );

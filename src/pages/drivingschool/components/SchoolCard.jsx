@@ -2,8 +2,6 @@ import React from "react";
 import { Phone, Envelope, Dot } from "./icons";
 
 const SchoolCard = ({ school, selectedSchool, onClick }) => {
-    console.log(school.name);
-
     return (
         <div
             className={`px-5 py-3 rounded-xl shadow-custom-shadow space-y-3 cursor-pointer ${

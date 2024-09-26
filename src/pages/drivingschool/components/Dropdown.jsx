@@ -5,14 +5,11 @@ import { ChevronDown } from "./icons";
 const Dropdown = ({
     title,
     options,
+    selectedOption,
+    setSelectedOption,
     placeholder = "Select an option",
-    onSelect,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState({
-        value: "",
-        label: `Select ${title}`,
-    });
     const dropdownRef = useRef(null);
     const listItemStyles = "text-xs py-2 px-4 hover:bg-gray-100 cursor-pointer";
 
@@ -39,7 +36,6 @@ const Dropdown = ({
     const handleSelect = (option) => {
         setSelectedOption(option);
         setIsOpen(false);
-        if (onSelect) onSelect(option); // Send selected option to parent
     };
 
     return (
@@ -51,7 +47,7 @@ const Dropdown = ({
             >
                 <span className="bg-white px-2 py-1 rounded-full">{title}</span>
                 <span className="text-nowrap">
-                    {selectedOption ? selectedOption.label : placeholder}
+                    {selectedOption ? selectedOption : placeholder}
                 </span>
                 <ChevronDown
                     className={`w-4 h-4 transition-transform transform ${
@@ -62,23 +58,19 @@ const Dropdown = ({
 
             {/* Dropdown menu */}
             {isOpen && (
-                <ul className="absolute left-0 z-10 mt-2 w-full bg-white border border-gray-200 rounded-md shadow-lg">
+                <ul className="absolute left-0 z-10 mt-2 w-full overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg">
                     <li
                         className={`${listItemStyles} opacity-50`}
-                        onClick={() =>
-                            handleSelect({
-                                value: "",
-                                label: `Select ${title}`,
-                            })
-                        }
+                        onClick={() => handleSelect("")}
                     >{`Select ${title}`}</li>
-                    {options.map((option) => (
+
+                    {options.map((option, index) => (
                         <li
-                            key={option.value}
+                            key={index}
                             onClick={() => handleSelect(option)}
                             className={listItemStyles}
                         >
-                            {option.label}
+                            {option}
                         </li>
                     ))}
                 </ul>
