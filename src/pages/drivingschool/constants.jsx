@@ -1,4 +1,4 @@
-export const schoolsData = [
+export const schools = [
     {
         name: "Saftey Driving School",
         phone: "08012389045",

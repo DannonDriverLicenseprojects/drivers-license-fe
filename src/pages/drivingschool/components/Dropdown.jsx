@@ -62,7 +62,7 @@ const Dropdown = ({
                     <li
                         className={`${listItemStyles} opacity-50`}
                         onClick={() => handleSelect("")}
-                    >{`Select ${title}`}</li>
+                    >{`Select none`}</li>
 
                     {options.map((option, index) => (
                         <li
