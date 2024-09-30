@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
-import SchoolCard from "./components/SchoolCard";
 import SchoolInfo from "./components/SchoolInfo";
 import SchoolsList from "./components/SchoolsList";
 import { schools } from "./constants";
 
 const DrivingSchool = () => {
-    const schoolsData = [...schools, ...schools, ...schools, ...schools, ...schools, ...schools, ...schools]
+    const schoolsData = [
+        ...schools,
+        ...schools,
+        ...schools,
+        ...schools,
+        ...schools,
+        ...schools,
+        ...schools,
+    ];
     const [filteredSchools, setFilteredSchools] = useState(schoolsData);
     const [searchText, setSearchText] = useState("");
     const [selectedSchool, setSelectedSchool] = useState(null);
@@ -76,22 +83,7 @@ const DrivingSchool = () => {
                         selectedSchool={selectedSchool}
                         handleSchoolClick={handleSchoolClick}
                     />
-                    {/* <div className="flex flex-col gap-4 border-4 border-[#F4F5F8] p-5 rounded-2xl">
-                        {filteredSchools.length !== 0 ? (
-                            filteredSchools.map((school, index) => (
-                                <SchoolCard
-                                    key={index}
-                                    school={school}
-                                    selectedSchool={selectedSchool}
-                                    onClick={handleSchoolClick}
-                                />
-                            ))
-                        ) : (
-                            <div className="min-h-40">
-                                No driving school matches the search term
-                            </div>
-                        )}
-                    </div> */}
+
                     <div className="flex flex-col gap-4 self-start border-4 border-[#F4F5F8] p-5 rounded-2xl">
                         {selectedSchool ? (
                             <SchoolInfo selectedSchool={selectedSchool} />

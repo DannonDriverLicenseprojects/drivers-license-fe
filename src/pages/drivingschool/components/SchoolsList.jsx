@@ -17,10 +17,13 @@ const SchoolsList = ({
     const totalPages = Math.ceil(filteredSchools.length / itemsPerpage);
 
     // Get the data to display on the current page
-    const currentPageData = filteredSchools.slice(
-        (currentPage - 1) * itemsPerpage,
-        currentPage * itemsPerpage
-    );
+    const currentPageData =
+        filteredSchools.length > itemsPerpage
+            ? filteredSchools.slice(
+                  (currentPage - 1) * itemsPerpage,
+                  currentPage * itemsPerpage
+              )
+            : filteredSchools;
 
     // Handle navigation to a specific page
     const handlePageChange = (pageNumber) => {
@@ -76,7 +79,7 @@ const SchoolsList = ({
 
     return (
         <div className="flex flex-col gap-4 border-4 border-[#F4F5F8] p-5 rounded-2xl">
-            {currentPageData.length !== 0 ? (
+            {currentPageData.length > 0 ? (
                 currentPageData.map((school, index) => (
                     <SchoolCard
                         key={index}
