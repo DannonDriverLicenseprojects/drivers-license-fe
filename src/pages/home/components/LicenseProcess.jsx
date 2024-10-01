@@ -16,7 +16,7 @@ const LicenseProcess = () => {
             </div>
             <div className='  flex p-6 xl:p-12 items-center gap-5 rounded-lg'>
                 <p className='shrink-0 bg-[#22C55E] w-16 h-16 rounded-full font-normal text-white  text-[20px]/[28px] flex items-center justify-center'>02</p>
-                <p className='font-normal text-white text-lg text-wrap text-left'> Pay for your premium DLC, Generate <br/> an appointment slip</p>
+                <p className='font-normal text-white text-lg text-wrap text-left'> Pay for your instant DLC, Generate <br/> an appointment slip</p>
             </div>
             <div className=' flex p-6 xl:p-12 items-center gap-6 rounded-lg'>
                 <p className='shrink-0 bg-[#22C55E] w-16 h-16 rounded-full font-normal text-white  text-[20px]/[28px] flex items-center justify-center'>03</p>
