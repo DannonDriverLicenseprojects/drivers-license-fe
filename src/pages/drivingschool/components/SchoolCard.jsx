@@ -1,17 +1,18 @@
 import React from "react";
+import SchoolInfo from "./SchoolInfo";
 import { Phone, Envelope, Dot } from "./icons";
 
 const SchoolCard = ({ school, selectedSchool, onClick }) => {
     return (
         <div
-            className={`px-5 py-3 rounded-xl shadow-custom-shadow space-y-3 cursor-pointer ${
+            className={`w-full px-5 py-3 rounded-xl shadow-custom-shadow space-y-3 cursor-pointer ${
                 school.name === selectedSchool?.name
                     ? "border border-custom-green"
                     : ""
             }`}
             onClick={() => onClick(school)}
         >
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center">
                 <h3 className="text-lg font-medium text-[#1D1E21]">
                     {school.name}
                 </h3>
@@ -29,7 +30,7 @@ const SchoolCard = ({ school, selectedSchool, onClick }) => {
                 </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
                 <div className="flex items-center gap-1">
                     <Phone />
                     <span className="text-[10px] text-[#B8BBC3] font-medium">

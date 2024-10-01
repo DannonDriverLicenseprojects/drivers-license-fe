@@ -78,7 +78,7 @@ const SchoolsList = ({
     };
 
     return (
-        <div className="flex flex-col gap-4 border-4 border-[#F4F5F8] p-5 rounded-2xl">
+        <div className="w-full flex flex-col gap-4 border-4 border-[#F4F5F8] p-5 rounded-2xl">
             {currentPageData.length > 0 ? (
                 currentPageData.map((school, index) => (
                     <SchoolCard
@@ -109,23 +109,25 @@ const SchoolsList = ({
                     </button>
 
                     {/* Page Number Buttons */}
-                    {getPageNumbers().map((pageNumber, index) => (
-                        <button
-                            key={index}
-                            onClick={() =>
-                                typeof pageNumber === "number" &&
-                                handlePageChange(pageNumber)
-                            }
-                            className={`px-3 py-2 border rounded ${
-                                pageNumber === currentPage
-                                    ? "bg-custom-green text-white"
-                                    : "bg-gray-200 hover:bg-gray-300"
-                            }`}
-                            disabled={pageNumber === "..."}
-                        >
-                            {pageNumber}
-                        </button>
-                    ))}
+                    <div className="hidden md:flex gap-2">
+                        {getPageNumbers().map((pageNumber, index) => (
+                            <button
+                                key={index}
+                                onClick={() =>
+                                    typeof pageNumber === "number" &&
+                                    handlePageChange(pageNumber)
+                                }
+                                className={`px-3 py-2 border rounded ${
+                                    pageNumber === currentPage
+                                        ? "bg-custom-green text-white"
+                                        : "bg-gray-200 hover:bg-gray-300"
+                                }`}
+                                disabled={pageNumber === "..."}
+                            >
+                                {pageNumber}
+                            </button>
+                        ))}
+                    </div>
 
                     {/* Next Page Button */}
                     <button

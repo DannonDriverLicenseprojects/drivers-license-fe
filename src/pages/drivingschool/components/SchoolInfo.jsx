@@ -10,17 +10,19 @@ import {
     EnvelopeWhite,
     Action,
     BoxArchive,
+    Close
 } from "./icons";
 
 const SchoolInfo = ({ selectedSchool }) => {
     return (
         <div className="space-y-9">
             <div className="bg-white px-6 py-5 space-y-6 rounded-xl shadow-custom-shadow">
+            {/* <Close className="absolute top-4 right-6 lg:hidden" /> */}
                 <div className="space-y-2">
                     <h5 className="text-xs font-bold text-[#1D1E21]">
                         Contacts
                     </h5>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                         <FlexItem
                             icon={<PhoneDark className="flex-none" />}
                             text={selectedSchool.phone}

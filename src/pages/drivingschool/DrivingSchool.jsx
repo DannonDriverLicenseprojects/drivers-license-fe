@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import SchoolInfo from "./components/SchoolInfo";
 import SchoolsList from "./components/SchoolsList";
+import Modal from "../../components/Modal";
+import { Close } from "./components/icons";
 import { schools } from "./constants";
 
 const DrivingSchool = () => {
@@ -19,6 +21,7 @@ const DrivingSchool = () => {
     const [selectedSchool, setSelectedSchool] = useState(null);
     const [selectedState, setSelectedState] = useState("");
     const [selectedLga, setSelectedLga] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         let filteredData = [...schoolsData];
@@ -34,6 +37,9 @@ const DrivingSchool = () => {
                         .toLowerCase()
                         .includes(searchText.toLowerCase()) ||
                     school.email
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                    school.state
                         .toLowerCase()
                         .includes(searchText.toLowerCase()) ||
                     school.phone.includes(searchText)
@@ -59,6 +65,12 @@ const DrivingSchool = () => {
 
     const handleSchoolClick = (school) => {
         setSelectedSchool(school);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedSchool(null);
+        setIsModalOpen(false);
     };
 
     return (
@@ -77,20 +89,28 @@ const DrivingSchool = () => {
                     }}
                 />
 
-                <div className="grid grid-cols-[739px_1fr] gap-5">
+                <div className="flex gap-5">
                     <SchoolsList
                         filteredSchools={filteredSchools}
                         selectedSchool={selectedSchool}
                         handleSchoolClick={handleSchoolClick}
                     />
 
-                    <div className="flex flex-col gap-4 self-start border-4 border-[#F4F5F8] p-5 rounded-2xl">
+                    <div className="hidden lg:flex flex-col gap-4 self-start border-4 border-[#F4F5F8] p-5 rounded-2xl">
                         {selectedSchool ? (
                             <SchoolInfo selectedSchool={selectedSchool} />
                         ) : (
                             <div className="min-h-40">No school selected</div>
                         )}
                     </div>
+
+                    <Modal isOpen={isModalOpen} mode="school Info Modal">
+                        <Close onClick={closeModal} className="absolute top-4 right-4 lg:hidden" />
+                        <h3 className="text-lg mb-4">{selectedSchool?.name}</h3>
+                        {selectedSchool && (
+                            <SchoolInfo selectedSchool={selectedSchool} />
+                        )}
+                    </Modal>
                 </div>
             </div>
         </div>

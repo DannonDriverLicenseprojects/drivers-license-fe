@@ -38,7 +38,7 @@ const Filter = ({ setSearchText, stateLgaObj }) => {
 
     return (
         <div className="flex items-center justify-between gap-4 md:gap-6 w-full bg-[#F2F2F2] px-6 md:px-16 py-5 rounded-2xl">
-            <div className="w-full min-w-[200px] max-w-[375px] bg-white border pl-4 pr-12 py-3 border-custom-green rounded-full relative">
+            <div className="w-full lg:max-w-[375px] bg-white border pl-4 pr-12 py-3 border-custom-green rounded-full relative">
                 <input
                     type="text"
                     name="searchText"
@@ -50,7 +50,8 @@ const Filter = ({ setSearchText, stateLgaObj }) => {
 
                 <Lens className="absolute right-4 inset-y-3" />
             </div>
-            <div className="flex items-center gap-5">
+
+            <div className="hidden lg:flex items-center gap-5">
                 <Dropdown
                     title="State"
                     options={states}
