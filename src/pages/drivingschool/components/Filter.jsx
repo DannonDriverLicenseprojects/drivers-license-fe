@@ -3,7 +3,7 @@ import Dropdown from "./Dropdown";
 import { Lens } from "./icons";
 import NaijaStates from "naija-state-local-government";
 
-const Filter = ({ setSearchText, stateLgaObj }) => {
+const Filter = ({ setSearchText, stateLgaObj, inputPlaceholder }) => {
     const [filterValue, setFilterValue] = useState("");
     const [lgas, setLgas] = useState([]);
     const states = NaijaStates.states();
@@ -45,7 +45,7 @@ const Filter = ({ setSearchText, stateLgaObj }) => {
                     className="w-full text-sm text-[#9E9E9E] font-medium outline-none bg-transparent"
                     value={filterValue}
                     onChange={(e) => setFilterValue(e.target.value)}
-                    placeholder="Search Driving School..."
+                    placeholder={inputPlaceholder}
                 />
 
                 <Lens className="absolute right-4 inset-y-3" />

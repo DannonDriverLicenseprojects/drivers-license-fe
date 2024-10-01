@@ -87,6 +87,7 @@ const DrivingSchool = () => {
                         selectedLga,
                         setSelectedLga,
                     }}
+                    inputPlaceholder="Search Driving School..."
                 />
 
                 <div className="flex gap-5">
@@ -96,7 +97,7 @@ const DrivingSchool = () => {
                         handleSchoolClick={handleSchoolClick}
                     />
 
-                    <div className="hidden lg:flex flex-col gap-4 self-start border-4 border-[#F4F5F8] p-5 rounded-2xl">
+                    <div className={`${ selectedSchool ? "" : "w-1/3"} hidden lg:flex flex-col gap-4 self-start border-4 border-[#F4F5F8] p-5 rounded-2xl`}>
                         {selectedSchool ? (
                             <SchoolInfo selectedSchool={selectedSchool} />
                         ) : (

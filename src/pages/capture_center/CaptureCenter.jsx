@@ -1,71 +1,125 @@
-import { useState } from "react";
-import Button, { Button2 } from "../../components/utils/Button"
-import NaijaStates from "naija-state-local-government";
-
-
-let state
+import { useState, useEffect } from "react";
+import SchoolCard from "../drivingschool/components/SchoolCard";
+import SchoolInfo from "../drivingschool/components/SchoolInfo";
+import SchoolsList from "../drivingschool/components/SchoolsList";
+import Modal from "../../components/Modal";
+import Filter from "../drivingschool/components/Filter";
+import { Close } from "../drivingschool/components/icons";
+import { centers } from "./constants";
 
 const CaptureCenter = () => {
-    const [selectState, setSelectState] = useState('')
-    const [selectLga, setSelectLga] = useState("")
+    const centersData = [
+        ...centers,
+        ...centers,
+        ...centers,
+        ...centers,
+        ...centers,
+        ...centers,
+        ...centers,
+    ];
+    const [filteredCenters, setFilteredCenters] = useState(centersData);
+    const [searchText, setSearchText] = useState("");
+    const [selectedCenter, setSelectedCenter] = useState(null);
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedLga, setSelectedLga] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        let filteredData = [...centersData];
+
+        // Apply search text filter
+        if (searchText) {
+            filteredData = filteredData.filter(
+                (center) =>
+                    center.name
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                    center.address
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                    center.email
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                    center.state
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                    center.phone.includes(searchText)
+            );
+        }
+
+        // Apply state filter
+        if (selectedState) {
+            filteredData = filteredData.filter((center) =>
+                center.state.toLowerCase().includes(selectedState.toLowerCase())
+            );
+        }
+
+        // Apply LGA filter
+        if (selectedLga) {
+            filteredData = filteredData.filter((center) =>
+                center.lga.toLowerCase().includes(selectedLga.toLowerCase())
+            );
+        }
+
+        setFilteredCenters(filteredData);
+    }, [searchText, selectedState, selectedLga]);
+
+    const handleCenterClick = (center) => {
+        setSelectedCenter(center);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedCenter(null);
+        setIsModalOpen(false);
+    };
 
     return (
-        <div className="h-full pb-8 p-4 md:p-10 xl:px-20 py-8 ">
-            <h1 className="text-2xl lg:text-5xl font-bold mb-1 text-custom-green">Capture Center</h1>
-            <p className="text-sm text-gray-700">Available Capture Center Details</p>
+        <div className="flex flex-col gap-4 md:gap-14 px-10 md:px-20 py-10">
+            <h1 className="text-3xl text-custom-green text-center font-semibold">
+                Capture Center
+            </h1>
+            <div className="space-y-8">
+                <Filter
+                    setSearchText={setSearchText}
+                    stateLgaObj={{
+                        selectedState,
+                        setSelectedState,
+                        selectedLga,
+                        setSelectedLga,
+                    }}
+                    inputPlaceholder="Search Capture Center..."
+                />
 
-            <div className="border-2 relative mt-6 md:mt-8 lg:mt-16 border-custom-green p-3 md:p-8">
-                <h2 className="bg-white px-4 text-lg font-semibold text-custom-green -translate-y-1/2 top-0 left-4 absolute">Search</h2>
-                <div className="flex flex-col md:flex-row mt-3 md:mt-8 gap-3 md:gap-6 items-center">
-                    <div className="md:grid max-w-[30rem] w-full">
-                        <label className="block mb-1" htmlFor="">State <span className="text-red-500">*</span></label>
-                        <select name="states" onChange={(e) => { setSelectState(e.target.value) }} className="p-2 border">
-                            <option value="">--Please Select--</option>
-                            {NaijaStates.states().map((state, index) => (
-                                <option key={index} value={state}>
-                                    {state}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className=" md:grid  max-w-[30rem] w-full">
-                        <label className="block mb-1" htmlFor="">LGA <span className="text-red-500">*</span></label>
-                        <select name="lga" onChange={(e) => { setSelectLga(e.target.value) }} className="p-2 border">
+                <div className="flex gap-5">
+                    <SchoolsList
+                        filteredSchools={filteredCenters}
+                        selectedSchool={selectedCenter}
+                        handleSchoolClick={handleCenterClick}
+                    />
 
-                            <option selected value="">--Please Select--</option>
-                            {selectState && NaijaStates.lgas(selectState).lgas.map(
-                                (lga, index) => (
-                                    <option key={index} value={lga}>
-                                        {lga}
-                                    </option>
-                                )
-                            )}
-
-                        </select>
-                    </div>
-                </div>
-
-                <div className="grid mt-8 gap-3">
-                    <p>Please enter code as displayed <span className="text-red-500">*</span></p>
-                    <div className="flex gap-4">
-                        <div>Capchacode</div>
-                        <input className="border max-w-[10rem] w-full p-4" type="text" />
+                    <div className={`${ selectedCenter ? "" : "w-1/3"} hidden lg:flex flex-col gap-4 self-start border-4 border-[#F4F5F8] p-5 rounded-2xl`}>
+                        {selectedCenter ? (
+                            <SchoolInfo selectedSchool={selectedCenter} />
+                        ) : (
+                            <div className="min-h-40">No center selected</div>
+                        )}
                     </div>
 
-
-
-
-                </div>
-
-                <div className="mt-8 justify-center md:justify-start flex gap-4 items-center ">
-                    <Button>Search</Button>
-                    <Button2>Reset</Button2>
+                    <Modal isOpen={isModalOpen} mode="center Info Modal">
+                        <Close
+                            onClick={closeModal}
+                            className="absolute top-4 right-4 lg:hidden"
+                        />
+                        <h3 className="text-lg mb-4">{selectedCenter?.name}</h3>
+                        {selectedCenter && (
+                            <SchoolInfo selectedSchool={selectedCenter} />
+                        )}
+                    </Modal>
                 </div>
             </div>
         </div>
+    );
+};
 
-
-    )
-}
-
-export default CaptureCenter
+export default CaptureCenter;
