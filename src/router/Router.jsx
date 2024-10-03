@@ -43,6 +43,7 @@ import {
 } from "../pages/admin";
 import { AdminProfile } from "../pages/admin/settings/components/AdminProfile";
 import AdminSettings from "../pages/admin/settings/components/AdminSettings";
+import About from "../pages/about/About";
 
 const router = createBrowserRouter([
     {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
                     {
                         path: "support",
                         element: <Support />,
+                    },
+                    {
+                        path: "about",
+                        element: <About />,
                     },
                     {
                         path: "login",
